@@ -1,9 +1,9 @@
 import React from 'react';
+import Layout from '../core/Layout';
 
-export default function Signup() {
-    return (
-        <div>
-            Signup
-        </div>
-    )
-}
+ const Signup = () => (
+     <Layout title="Sign Up" description="Sign Up to E-commerce website with Node and React">
+Signup content
+     </Layout>
+ )
+export default Signup
