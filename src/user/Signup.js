@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import Layout from '../core/Layout';
+import { API } from '../config';
 
  const Signup = () => {
      //useState hook to update state when input gets values/changes
@@ -12,9 +13,36 @@ import Layout from '../core/Layout';
          success: false   //default value for success is false
      })
 
+     const {name, email, password} = values;
+
      //function returning another function, grab the eventTypeName and then grab  event (higher order function)
      const handleChange = eventTypeName => event => {
 setValues({...values, error: false, [eventTypeName]:event.target.value})
+     }
+
+const signup = (user) => { //user(javascript object, then convert to json) comes from signup({name, email, password})
+    console.log(user);
+fetch(`${API}/signup`, {
+method: "POST",
+headers: {
+    Accept: 'application/json', //api responds with json data, so need to accept it
+    "Content-Type": "application/json" 
+},
+//the actual data in the body, need to send it as a json string
+body: JSON.stringify(user)
+})
+//get either success or error
+.then(response => {
+    return response.json()
+})
+.catch(err => {
+    console.log(err)
+})
+}
+
+     const handleSubmit = (e) => {
+e.preventDefault(); //prevent reloading
+signup({name, email, password}); //give name, email and password to sign up
      }
 
 const signUpForm = () => (
@@ -33,7 +61,7 @@ const signUpForm = () => (
 <label className="text-muted">Password</label>
 <input type="password" className="form-control" onChange={handleChange('password')}></input>
         </div>
-        <button btn btn-primary>Submit</button>
+        <button btn btn-primary onClick={handleSubmit}>Submit</button>
     </form>
 )
 
