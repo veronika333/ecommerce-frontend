@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import Layout from '../core/Layout';
-import { signin } from '../auth/index';
+import { signin, authenticate } from '../auth/index';
 import { Redirect } from 'react-router-dom';
 
  const Signin = () => {
@@ -30,15 +30,16 @@ signin({email, password}) //give email and password to sign in
         setValues({
             ...values, error: data.error, loading:false
         })
-    } else { //if there was no error, redirect the user
-            setValues({
+    } else { //if there was no error, authenticate(keep in localStorage) and redirect the user
+        authenticate(data, () => {
+          setValues({
                 ...values, 
                 redirectedUser: true
-            })
+            });   
+        });   
         }
-    
-})
-     }
+});
+     };
 
 const signInForm = () => (
     <form>
@@ -71,7 +72,7 @@ const redirectTheUser =() => {
 
 
  return (
-     <Layout title="Sign Up" description="Sign Up to E-commerce website with Node and React"
+     <Layout title="Sign In" description="Sign In to E-commerce website with Node and React"
      className="container col-md-8 offset-md-2">
  {showLoading()}
  {showError()}        

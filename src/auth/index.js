@@ -40,3 +40,14 @@ body: JSON.stringify(user)
     console.log(err);
 });
 };
+
+//for keeping data in local storage. 2 arguments: data and callback(next)
+export const authenticate = (data, next) => {
+    //first check if there is a window object
+    //because local storage is a property of browser window object
+if(typeof window !== "undefined"){
+    localStorage.setItem('myDataKey', JSON.stringify(data)) //from localStorage documentation: two arguments: key and data
+//using JSON stringify tosave a json data (convert javascript object to json)
+next();
+}
+}
