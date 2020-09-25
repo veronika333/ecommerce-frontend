@@ -69,7 +69,7 @@ const showError = () => (
 )
 
 const showSuccess = () => (
-    <div className="aler alert-info" style={{display: success ? "" : 'none'}}>
+    <div className="alert alert-info" style={{display: success ? "" : 'none'}}>
         You have successfully created an account. Please <Link to="/signin">sign in</Link>.
     </div>
 )
