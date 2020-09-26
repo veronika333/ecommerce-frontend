@@ -62,3 +62,15 @@ return fetch(`${API}/signout`, {method:'GET'})
 .catch(error => console.log(error)) 
     }
 }
+
+
+export const isAuthenticated = () => {
+    if(typeof window == "undefined"){
+        return false;
+    } 
+    if(localStorage.getItem('myDataKey')){
+        return JSON.parse(localStorage.getItem('myDataKey'))
+    } else {
+        return false;
+    }
+};
