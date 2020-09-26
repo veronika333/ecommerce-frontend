@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import Layout from '../core/Layout';
-import { signin, authenticate } from '../auth/index';
+import { signin, authenticate, isAuthenticated } from '../auth/index';
 import { Redirect } from 'react-router-dom';
 
  const Signin = () => {
@@ -15,7 +15,7 @@ import { Redirect } from 'react-router-dom';
      })
 
      const {email, password, loading, error, redirectedUser} = values;
-
+const {user} = isAuthenticated() //destructuring
      //function returning another function, grab the eventTypeName and then grab  event (higher order function)
      const handleChange = eventTypeName => event => {
 setValues({...values, error: false, [eventTypeName]:event.target.value})
@@ -65,8 +65,13 @@ const showLoading = () =>
    loading && (<div className="alert alert-info"><h2>Loading...</h2></div>)  //if loading is true, then show the div
 
 const redirectTheUser =() => {
-    if(redirectedUser){
-        return <Redirect to="/" />;
+    if(redirectedUser){ //check if the user is admin
+        if(user && user.role === 1){
+             return <Redirect to="/admin/dashboard" />;
+        } else {
+            return <Redirect to="/user/dashborad" />
+        }
+       
     }
 }
 
