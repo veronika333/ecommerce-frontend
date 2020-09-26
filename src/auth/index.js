@@ -46,8 +46,19 @@ export const authenticate = (data, next) => {
     //first check if there is a window object
     //because local storage is a property of browser window object
 if(typeof window !== "undefined"){
-    localStorage.setItem('myDataKey', JSON.stringify(data)) //from localStorage documentation: two arguments: key and data
+    localStorage.setItem('myDataKey', JSON.stringify(data)); //from localStorage documentation: two arguments: key and data
 //using JSON stringify tosave a json data (convert javascript object to json)
 next();
 }
+}
+
+
+export const signout = (next) => {
+    if(typeof window !== "undefined") {
+        localStorage.removeItem("myDataKey");   //remove from local storage
+        next(); //to later redirect the user
+return fetch(`${API}/signout`, {method:'GET'})
+.then(response => console.log("signout", response))
+.catch(error => console.log(error)) 
+    }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
-// withRouter allows to access props history
+import { Link, withRouter } from 'react-router-dom'; // withRouter allows to access props history
+import { signout } from '../auth/index';
 
 // if the link is active, return different color
 const isActive = (history, path) => {
@@ -17,10 +17,16 @@ function Menu( { history } ){
     <Link className="nav-link" to="/" style={isActive(history, '/')}>home</Link>
 </li>
 <li className="nav-item">
-    <Link className="nav-link" to="/signin" style={isActive(history, '/signin')}>signin</Link>
+    <Link className="nav-link" to="/signin" style={isActive(history, '/signin')}>sign in</Link>
 </li>
 <li className="nav-item">
-    <Link className="nav-link" to="/signup" style={isActive(history, '/signup')}>signup</Link>
+    <Link className="nav-link" to="/signup" style={isActive(history, '/signup')}>sign up</Link>
+</li>
+<li className="nav-item">
+    <span className="nav-link" style={{cursor:"pointer", color:"white"}} 
+    onClick={() => signout(() =>{
+    history.push("/"); //push user to home page
+    })}>sign out</span>
 </li>
            </ul> 
         </div>
