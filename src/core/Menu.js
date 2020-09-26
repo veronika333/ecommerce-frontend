@@ -16,6 +16,9 @@ function Menu( { history } ){
 <li className="nav-item">
     <Link className="nav-link" to="/" style={isActive(history, '/')}>home</Link>
 </li>
+<li className="nav-item">
+    <Link className="nav-link" to="/dashboard" style={isActive(history, '/dashboard')}>dashboard</Link>
+</li>
 {!isAuthenticated() && (
     <>
     <li className="nav-item">
