@@ -73,6 +73,9 @@ const redirectTheUser =() => {
         }
        
     }
+    if(isAuthenticated()){
+        return <Redirect to="/" />
+    }
 }
 
 
@@ -83,7 +86,6 @@ const redirectTheUser =() => {
  {showError()}        
 {signInForm()}
 {redirectTheUser()}
-{/* {JSON.stringify(values)}  */}
      </Layout>
  )
  }
