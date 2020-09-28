@@ -69,7 +69,7 @@ const redirectTheUser =() => {
         if(user && user.role === 1){
              return <Redirect to="/admin/dashboard" />;
         } else {
-            return <Redirect to="/user/dashborad" />
+            return <Redirect to="/user/dashboard" />
         }
        
     }
