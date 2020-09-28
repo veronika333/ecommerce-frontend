@@ -20,3 +20,23 @@ body: JSON.stringify(category)
     console.log(err);
 });
 };
+
+//create product
+export const createProduct = (userId, token, product) => { //user(javascript object, then convert to json) comes from signup({name, email, password})
+    return fetch(`${API}/product/create/${userId}`, {
+method: "POST",
+headers: {
+    Accept: 'application/json', 
+    Authorization: `Bearer ${token}`
+},
+//the actual data in the body
+body: product
+})
+//get either success or error
+.then(response => {
+    return response.json()
+})
+.catch(err => {
+    console.log(err);
+});
+};
