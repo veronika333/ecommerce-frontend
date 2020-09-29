@@ -6,7 +6,6 @@ import { createProduct } from './apiAdmin';
 
 const AddProduct = () => {
 
-    const {user, token} = isAuthenticated(); //destructing
 const [values, setValues] = useState({ //object with properties of the product
 name: '',
 description: '',
@@ -22,6 +21,8 @@ createdProduct: '', //to inform the user that the product was created
 redirectToProfile: false,
 formData: '' //empty at the beginning
 })
+
+const {user, token} = isAuthenticated(); //destructing
 //destruct values from the state, so that it's easy to use in the form
 const {
    name, description, price, categories, category, shipping, 
@@ -43,7 +44,22 @@ setValues({...value, [name]: value}) //based on the evaluation, set the value
 }
 
 const handleSubmit = (event) => {
+event.preventDefault(); //then empty errors, if there were any
+setValues({...values, error: '', loading: true});
 
+//now can use createProduct, need id and token from authorizedUser
+createProduct(user._id, token, formData)
+.then(data => {
+    if(data.error){
+        setValues({...values, error: data.error})
+    } else {  //empty the values
+        setValues({
+            ...values, name: '', description: '',
+            photo: '', price: '', quantity: '', loading: false, //when response, then loading is false
+        createdProduct: data.name
+        })
+    }
+})
 }
 
 //creating form
@@ -77,7 +93,8 @@ const newPostForm = () => (
     <label className="text-muted">Category</label>
     <select onChange={handleChange('category')} className="form-control">
     {/* need to get categories from backend below */}
-    <option value=""></option>
+    <option value="">Python</option>
+    <option value="">PHP</option>
     </select>
 </div>
 
