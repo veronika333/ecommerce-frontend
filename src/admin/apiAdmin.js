@@ -40,3 +40,13 @@ body: product
     console.log(err);
 });
 };
+
+export const getCategories = () => {
+    return fetch(`${API}/categories`, {
+        method: "GET"
+    })
+    .then(response => { //if get response, return it in json
+        return response.json();
+    })
+    .catch(err => console.log(err))
+};
