@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 //props - categories from the Shop; look through categories and return all of them
-const Checkbox = ({categories}) => {
+const Checkbox = ({categories, handleFilters}) => {
  const [checked, setChecked] = useState([])
 
  //gets the category and returns another function
@@ -16,8 +16,9 @@ if(currentCategoryId === -1) {
 } else { //if it was already there( it was checked) . if it was checked, need to uncheck
 newCheckedCategoryId.splice(currentCategoryId, 1) //grab one item and take it off
 }
-console.log(newCheckedCategoryId)
+//console.log(newCheckedCategoryId) shows array of category IDs
 setChecked(newCheckedCategoryId)
+handleFilters(newCheckedCategoryId)
 }
     
 return categories.map((category, index) => (

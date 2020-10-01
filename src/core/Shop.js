@@ -22,6 +22,12 @@ const init = () => {
     })
 }
 
+//pass the methode below to the checkbox
+//filterBy - either by category or by price
+const handleFilters = (filters, filterBy) => {
+console.log("SHOP", filters, filterBy)
+}
+
 useEffect = (() => {
 init()
 }, [])
@@ -33,7 +39,7 @@ init()
     <div className="col-4">
         <h4>Filter by categories</h4>
 <ul>
-        <Checkbox categories={categories} />
+        <Checkbox categories={categories} handleFilters={filters => handleFilters(filters, 'category')} />
 </ul>
     </div> 
    <div className="col-8">right</div>
