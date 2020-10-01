@@ -14,7 +14,11 @@ function Menu( { history } ){
  <div>
            <ul className="nav nav-tabs bg-primary">
 <li className="nav-item">
-    <Link className="nav-link" to="/" style={isActive(history, '/')}>home</Link>
+    <Link className="nav-link" to="/" style={isActive(history, '/')}>Home</Link>
+</li>
+
+<li className="nav-item">
+    <Link className="nav-link" to="/shop" style={isActive(history, '/shop')}>Shop</Link>
 </li>
 
 {/* if the user is authenticated and it's user(not admin),
