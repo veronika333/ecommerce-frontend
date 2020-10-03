@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import Layout from './Layout';
 import Card from './Card';
-import { getCategories } from "./apiCore";
+import { getCategories, getFilteredProducts } from "./apiCore";
 import Checkbox from './Checkbox';
 import RadioBox from './RadioBox';
 import { prices } from './fixedPrices';
+
 
 const Shop = () => {
 const [myFilters, setMyFilters] = useState({
@@ -13,6 +14,9 @@ const [myFilters, setMyFilters] = useState({
     //creating state to hold categories
     const [categories, setCategories] = useState([]);
     const [error, setError] = useState(false);
+    const [limit, setLimit] = useState(6);
+    const [skip, setSkip] = useState(0);
+    const [filteredResults, setFilteredResults] = useState(0);
 
 //load categories 
 const init = () => {
@@ -23,21 +27,55 @@ const init = () => {
         } else {
          setCategories(data)   //need to do it when component mounts => useEffect
         }
-    })
+    });
+};
+
+const loadFilteredResults = (newFilters) => {
+   // console.log(newFilters)
+   getFilteredProducts(skip, limit, newFilters).then(data => {
+       if(data.error){
+           setError(data.error)
+       } else {
+setFilteredResults(data)
+       }
+   })
 }
 
+useEffect = (() => {
+    init(); //run these function when the component mounts
+    loadFilteredResults(skip, limit, myFilters.filters) //passing the arguments
+    }, []);
 //pass the methode below to the checkbox
 //filterBy - either by category or by price
 const handleFilters = (filters, filterBy) => {
 //console.log("SHOP", filters, filterBy)
-const newFilters = {...myFilters}
-newFilters.filters[filterBy] = filters
+const newFilters = {...myFilters};
+newFilters.filters[filterBy] = filters;
+
+if(filterBy == "price"){
+    let priceValues = handlePrice(filters);
+    newFilters.filters[filterBy] = priceValues;
+}
+loadFilteredResults(myFilters.filters) //fetch filtered products
 setMyFilters(newFilters)
 }
 
-useEffect = (() => {
-init()
-}, [])
+//grabbing the value
+const handlePrice = value => {
+const data = prices;
+let array = []
+
+//looping prices
+for(let key in data){ //looping through each
+    if(data[key]._id === parseInt(value)){ //The parseInt function converts its first argument to a string, parses that string, then returns an integer or NaN
+        //populate array 
+        array = data[key].array
+    }
+}
+return array; //return array after looping
+}
+
+
 
     return (
         <Layout title="Shop Page" descriptio="Shop and find makeups of your choice" className="container-fluid">
@@ -61,7 +99,7 @@ init()
 
     </div> 
    <div className="col-8">right
-   {JSON.stringify(myFilters)}
+   {JSON.stringify(filteredResults)}
    </div>
 </div>
 
