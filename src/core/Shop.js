@@ -3,9 +3,13 @@ import Layout from './Layout';
 import Card from './Card';
 import { getCategories } from "./apiCore";
 import Checkbox from './Checkbox';
+import RadioBox from './RadioBox';
+import { prices } from './fixedPrices';
 
 const Shop = () => {
-
+const [myFilters, setMyFilters] = useState({
+    filters: { category: [], price: [] } //filters contain categories and price
+});
     //creating state to hold categories
     const [categories, setCategories] = useState([]);
     const [error, setError] = useState(false);
@@ -25,7 +29,10 @@ const init = () => {
 //pass the methode below to the checkbox
 //filterBy - either by category or by price
 const handleFilters = (filters, filterBy) => {
-console.log("SHOP", filters, filterBy)
+//console.log("SHOP", filters, filterBy)
+const newFilters = {...myFilters}
+newFilters.filters[filterBy] = filters
+setMyFilters(newFilters)
 }
 
 useEffect = (() => {
@@ -37,12 +44,25 @@ init()
 
 <div className="row">
     <div className="col-4">
+
         <h4>Filter by categories</h4>
 <ul>
-        <Checkbox categories={categories} handleFilters={filters => handleFilters(filters, 'category')} />
+        <Checkbox categories={categories} 
+        handleFilters={filters => 
+        handleFilters(filters, 'category')} />
 </ul>
+
+<h4>Filter by price range</h4>
+<div>
+        <RadioBox prices={prices} 
+        handleFilters={filters => 
+        handleFilters(filters, 'price')} />
+</div>
+
     </div> 
-   <div className="col-8">right</div>
+   <div className="col-8">right
+   {JSON.stringify(myFilters)}
+   </div>
 </div>
 
         </Layout>
