@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {getCategories} from './apiCore';
+import {getCategories, list} from './apiCore';
 import Card from './Card';
 
 const Search = () => {
@@ -28,12 +28,28 @@ useEffect(() => {
 loadCategories()
 }, [])
 
-const searchSubmit = () => {
-
+const searchData = () => {
+//console.log(search, category);
+if(search){ //if have search, then excecute list with params
+list({search: search || undefined, category: category}) //if nothing, then undefined
+.then(response => {
+    if(response.error){
+        console.log(response.error)
+    } else {
+        setData({...data, results: response, searched: true});
+    }
+})
+}
 }
 
-const handleChange = () => {
-
+const searchSubmit = (e) => {
+e.preventDefault();
+searchData() //it makes api request
+}
+//name can be "category" or "search"
+//higher order function, grab name, grab event (function returning another function)
+const handleChange = (name) => event => {
+setData({...data, [name]: event.target.value, searched: false})
 }
 
 const searchForm = () => (
@@ -66,6 +82,7 @@ const searchForm = () => (
         <div className="row">
             <div className="container mb-3">
                 {searchForm()}
+                {JSON.stringify(results)}
             </div>
         </div>
     )

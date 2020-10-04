@@ -1,4 +1,5 @@
 import { API } from '../config';
+import queryString from 'query-string';
 
 //load products by sell and by arrival
 export const getProducts = (sortBy) => { //passing parameters
@@ -43,4 +44,17 @@ body: JSON.stringify(data)
 .catch(err => {
     console.log(err);
 });
+};
+
+
+export const list = params => { //passing parameters
+    const query = queryString.stringify(params) //to send a proper query string to backend
+   console.log('query', query)
+    return fetch(`${API}/products?${query}`, {
+        method: "GET"
+    })
+    .then(response => { //if get response, return it in json
+        return response.json();
+    })
+    .catch(err => console.log(err))
 };
