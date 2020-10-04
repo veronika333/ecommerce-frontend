@@ -16,6 +16,7 @@ const [myFilters, setMyFilters] = useState({
     const [error, setError] = useState(false);
     const [limit, setLimit] = useState(6);
     const [skip, setSkip] = useState(0);
+    const [size, setSize] = useState(0);
     const [filteredResults, setFilteredResults] = useState(0);
 
 //load categories 
@@ -36,9 +37,34 @@ const loadFilteredResults = (newFilters) => {
        if(data.error){
            setError(data.error)
        } else {
-setFilteredResults(data.data) //checked in console in network, everytning inside data
-       }
+           //take everything in filteredResults and then pass the data
+setFilteredResults(data.data); //checked in console in network, everytning inside data
+setSize(data.size) //ow many products getting
+setSkip(0) //later can use it to load more
+}
    })
+}
+//load more method
+
+const loadMore = () => {
+   let toSkip = skip + limit //skip whatever is in the state + limit
+    getFilteredProducts(toSkip, limit, myFilters.filters).then(data => {
+        if(data.error){
+            setError(data.error)
+        } else {
+ setFilteredResults([...filteredResults, ...data.data]); //check whatever is in the state and add data
+ setSize(data.size)    //setting size again  
+ setSkip(toSkip)
+ }
+    })
+ }
+
+const loadMoreButton = () => {
+    return (
+        size > 0 && size >= limit && (
+            <button onClick={loadMore} className="btn btn-warning mb-5">Load more</button>
+        )
+    )
 }
 
 useEffect = (() => {
@@ -107,6 +133,8 @@ return array; //return array after looping
 
 ))}
    </div>
+   <hr />
+   {loadMoreButton()}
    </div>
 </div>
 
