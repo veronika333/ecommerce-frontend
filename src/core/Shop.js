@@ -36,7 +36,7 @@ const loadFilteredResults = (newFilters) => {
        if(data.error){
            setError(data.error)
        } else {
-setFilteredResults(data)
+setFilteredResults(data.data) //checked in console in network, everytning inside data
        }
    })
 }
@@ -98,8 +98,15 @@ return array; //return array after looping
 </div>
 
     </div> 
-   <div className="col-8">right
-   {JSON.stringify(filteredResults)}
+   <div className="col-8">
+   <h2 className="mb-4">Products</h2>
+   <div className="row"> 
+{filteredResults.map((product, index) => (
+   
+<Card key={index} product={product} />
+
+))}
+   </div>
    </div>
 </div>
 
