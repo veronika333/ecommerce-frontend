@@ -50,7 +50,7 @@ body: JSON.stringify(data)
 export const list = params => { //passing parameters
     const query = queryString.stringify(params) //to send a proper query string to backend
    console.log('query', query)
-    return fetch(`${API}/products?${query}`, {
+    return fetch(`${API}/products/search?${query}`, {
         method: "GET"
     })
     .then(response => { //if get response, return it in json
