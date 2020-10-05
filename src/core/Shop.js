@@ -110,7 +110,10 @@ init()
     return (
         <Layout title="Shop Page" description="Shop and find makeups of your choice" className="container-fluid">
             <div>
-                /* {JSON.stringify(categories)} */
+            <h4>Filter by categories</h4>
+                <ul>
+            <Checkbox categories={categories} />
+            </ul>
             </div>
 
 {/* <div className="row">
