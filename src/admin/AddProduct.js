@@ -52,7 +52,7 @@ const handleChange = name => event => { //if its a photo, grab files and the fir
 const value = name === 'photo' ? event.target.files[0] : event.target.value //otherwise grab value
 formData.set(name, value) //using method set to set the name and value
 //set the state, first grab the values in the state, then name
-setValues({...value, [name]: value}) //based on the evaluation, set the value
+setValues({...values, [name]: value}) //based on the evaluation, set the value
 }
 
 const handleSubmit = (event) => {

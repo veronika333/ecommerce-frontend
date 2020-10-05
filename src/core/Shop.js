@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Layout from './Layout';
 import Card from './Card';
 import { getCategories, getFilteredProducts } from "./apiCore";
@@ -21,8 +21,7 @@ const [myFilters, setMyFilters] = useState({
 
 //load categories 
 const init = () => {
-    getCategories()
-    .then(data => {
+    getCategories().then(data => {
         if(data.error){
             setError(data.error)
         } else {
@@ -69,7 +68,7 @@ const loadMoreButton = () => {
 
 useEffect = (() => {
     init(); //run these function when the component mounts
-    loadFilteredResults(skip, limit, myFilters.filters) //passing the arguments
+    // loadFilteredResults(skip, limit, myFilters.filters) //passing the arguments
     }, []);
 //pass the methode below to the checkbox
 //filterBy - either by category or by price
