@@ -67,6 +67,7 @@ setFilteredResults(data); //checked in console in network, everytning inside dat
 // }
 useEffect(() => {
 init()
+loadFilteredResults(skip, limit, myFilters.filters)
 }, [])
 // useEffect = (() => {
 //     init(); //run these function when the component mounts
