@@ -32,7 +32,7 @@ loadSingleProduct(productId)
 
 <div className="row">
 {product && product.description &&
-<Card product={product} />
+<Card product={product} showViewProductButton={false} />
 }
 </div>
 

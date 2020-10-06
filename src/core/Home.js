@@ -38,14 +38,18 @@ return (
 <h2 className="mb-4">New Arrivals</h2>
 <div className="row">
 {productsByArrival.map((product, i) => ( //look through the products, when mapping through each product. get product and index 
-    <Card key={i} product={product} /> //giving the key and sending product as props
+    <div key={i} className="col-4 mb-3">
+<Card product={product} /> 
+    </div>
 ))}
 </div>
 
 <h2 className="mb-4">Best Sellers</h2>
 <div className="row">
     {productsBySell.map((product, i) => ( //look through the products, when mapping through each product. get product and index 
-    <Card key={i} product={product} /> //giving the key and sending product as props
+    <div key={i} className="col-4 mb-3">
+    <Card key={i} product={product} /> 
+        </div>
 ))}
 </div>
 
