@@ -30,7 +30,7 @@ return categories.map((category, index) => (
     value={checked.indexOf(category._id === -1)} 
        type="checkbox" 
        className="form-check-input" /> 
-<lable className="form-check-label">{category.name}</lable>
+<label className="form-check-label">{category.name}</label>
     </li>
 ));
 }

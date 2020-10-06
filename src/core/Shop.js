@@ -78,15 +78,15 @@ init()
 //need code below
 
 const handleFilters = (filters, filterBy) => {
-console.log("SHOP", filters, filterBy)
+//console.log("SHOP", filters, filterBy)
 const newFilters = {...myFilters};
 newFilters.filters[filterBy] = filters;
 
 if(filterBy === "price"){
-    let priceValues = handlePrice(filters);
-    newFilters.filters[filterBy] = priceValues;
+let priceValues = handlePrice(filters);
+newFilters.filters[filterBy] = priceValues;
 }
-// loadFilteredResults(myFilters.filters) //fetch filtered products
+//loadFilteredResults(myFilters.filters) //fetch filtered products
 setMyFilters(newFilters)
 }
 
@@ -109,13 +109,15 @@ return array; //return array after looping
 
     return (
         <Layout title="Shop Page" description="Shop and find makeups of your choice" className="container-fluid">
-            <div>
+           <div className="row">
+            <div className="col-4">
             <h4>Filter by categories</h4>
                 <ul>
             <Checkbox categories={categories}
             handleFilters={filters => handleFilters(filters, 'category')}
              />
             </ul>
+            
             <h4>Filter by price range</h4>
 <div>
         <RadioBox prices={prices} 
@@ -127,6 +129,7 @@ return array; //return array after looping
 rigth {JSON.stringify(myFilters)}
             </div>
 
+            </div>
 {/* <div className="row">
     <div className="col-4">
 
