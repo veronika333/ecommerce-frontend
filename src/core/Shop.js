@@ -8,9 +8,9 @@ import { prices } from './fixedPrices';
 
 
 const Shop = () => {
-// const [myFilters, setMyFilters] = useState({
-//     filters: { category: [], price: [] } //filters contain categories and price
-// });
+const [myFilters, setMyFilters] = useState({
+filters: { category: [], price: [] } //filters contain categories and price
+});
     //creating state to hold categories
     const [categories, setCategories] = useState([]);
     const [error, setError] = useState(false);
@@ -77,33 +77,33 @@ init()
 
 //need code below
 
-// const handleFilters = (filters, filterBy) => {
-// //console.log("SHOP", filters, filterBy)
-// const newFilters = {...myFilters};
-// newFilters.filters[filterBy] = filters;
+const handleFilters = (filters, filterBy) => {
+console.log("SHOP", filters, filterBy)
+const newFilters = {...myFilters};
+newFilters.filters[filterBy] = filters;
 
-// if(filterBy === "price"){
-//     let priceValues = handlePrice(filters);
-//     newFilters.filters[filterBy] = priceValues;
-// }
+if(filterBy === "price"){
+    let priceValues = handlePrice(filters);
+    newFilters.filters[filterBy] = priceValues;
+}
 // loadFilteredResults(myFilters.filters) //fetch filtered products
-// setMyFilters(newFilters)
-// }
+setMyFilters(newFilters)
+}
 
 //grabbing the value
-// const handlePrice = value => {
-// const data = prices;
-// let array = []
+const handlePrice = value => {
+const data = prices;
+let array = []
 
-// //looping prices
-// for(let key in data){ //looping through each
-//     if(data[key]._id === parseInt(value)){ //The parseInt function converts its first argument to a string, parses that string, then returns an integer or NaN
-//         //populate array 
-//         array = data[key].array
-//     }
-// }
-// return array; //return array after looping
-// }
+//looping prices
+for(let key in data){ //looping through each
+    if(data[key]._id === parseInt(value)){ //The parseInt function converts its first argument to a string, parses that string, then returns an integer or NaN
+        //populate array 
+        array = data[key].array
+    }
+}
+return array; //return array after looping
+}
 
 
 
@@ -112,8 +112,19 @@ init()
             <div>
             <h4>Filter by categories</h4>
                 <ul>
-            <Checkbox categories={categories} />
+            <Checkbox categories={categories}
+            handleFilters={filters => handleFilters(filters, 'category')}
+             />
             </ul>
+            <h4>Filter by price range</h4>
+<div>
+        <RadioBox prices={prices} 
+        handleFilters={filters => 
+        handleFilters(filters, 'price')} />
+</div>
+            </div>
+            <div className="col-8">
+rigth {JSON.stringify(myFilters)}
             </div>
 
 {/* <div className="row">

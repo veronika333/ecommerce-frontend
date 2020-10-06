@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
 //props - categories from the Shop; look through categories and return all of them
-const Checkbox = ({categories
-    // , handleFilters
+const Checkbox = ({categories, 
+    handleFilters
 }) => {
  const [checked, setChecked] = useState([])
 
@@ -20,7 +20,7 @@ newCheckedCategoryId.splice(currentCategoryId, 1)} //grab one item and take it o
 // }
 console.log(newCheckedCategoryId) //shows array of category IDs
 setChecked(newCheckedCategoryId)
-// handleFilters(newCheckedCategoryId)
+handleFilters(newCheckedCategoryId)
 }
     
 return categories.map((category, index) => (
