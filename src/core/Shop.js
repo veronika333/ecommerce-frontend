@@ -17,7 +17,7 @@ filters: { category: [], price: [] } //filters contain categories and price
     const [limit, setLimit] = useState(6);
     const [skip, setSkip] = useState(0);
     // const [size, setSize] = useState(0);
-    const [filteredResults, setFilteredResults] = useState(0);
+    const [filteredResults, setFilteredResults] = useState([]);
 
 //load categories 
 const init = () => {
@@ -37,7 +37,7 @@ if(data.error){
 setError(data.error)
 } else {
 //take everything in filteredResults and then pass the data
-setFilteredResults(data); //checked in console in network, everytning inside data
+setFilteredResults(data.data); //checked in console in network, everytning inside data
 // setSize(data.size) //ow many products getting
 // setSkip(0) //later can use it to load more
 }
@@ -128,6 +128,11 @@ return array; //return array after looping
             </div>
             <div className="col-8">
 rigth {JSON.stringify(filteredResults)}
+{filteredResults.map((product, index) => (
+   
+   <Card key={index} product={product} />
+   
+   ))}
             </div>
 
             </div>
