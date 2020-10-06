@@ -25,12 +25,15 @@ loadSingleProduct(productId)
 }, [])
 
     return (
-        <Layout title="Home Page" 
-        descriptio="Node React E-commerce App" 
+        <Layout title={product && product.name} 
+        descriptio={product &&
+            product.description && product.description.substring(0, 100)} 
         className="container-fluid">
-<h2 className="mb-4">Single Products</h2>
+
 <div className="row">
-{JSON.stringify(product)}
+{product && product.description &&
+<Card product={product} />
+}
 </div>
 
         </Layout>
