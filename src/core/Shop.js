@@ -14,10 +14,10 @@ filters: { category: [], price: [] } //filters contain categories and price
     //creating state to hold categories
     const [categories, setCategories] = useState([]);
     const [error, setError] = useState(false);
-    // const [limit, setLimit] = useState(6);
-    // const [skip, setSkip] = useState(0);
+    const [limit, setLimit] = useState(6);
+    const [skip, setSkip] = useState(0);
     // const [size, setSize] = useState(0);
-    // const [filteredResults, setFilteredResults] = useState(0);
+    const [filteredResults, setFilteredResults] = useState(0);
 
 //load categories 
 const init = () => {
@@ -30,19 +30,19 @@ const init = () => {
     });
 };
 
-// const loadFilteredResults = (newFilters) => {
-//    // console.log(newFilters)
-//    getFilteredProducts(skip, limit, newFilters).then(data => {
-//        if(data.error){
-//            setError(data.error)
-//        } else {
-//            //take everything in filteredResults and then pass the data
-// setFilteredResults(data.data); //checked in console in network, everytning inside data
+const loadFilteredResults = (newFilters) => {
+//console.log(newFilters)
+getFilteredProducts(skip, limit, newFilters).then(data => {
+if(data.error){
+setError(data.error)
+} else {
+//take everything in filteredResults and then pass the data
+setFilteredResults(data); //checked in console in network, everytning inside data
 // setSize(data.size) //ow many products getting
 // setSkip(0) //later can use it to load more
-// }
-//    })
-// }
+}
+})
+}
 //load more method
 
 // const loadMore = () => {
@@ -86,7 +86,7 @@ if(filterBy === "price"){
 let priceValues = handlePrice(filters);
 newFilters.filters[filterBy] = priceValues;
 }
-//loadFilteredResults(myFilters.filters) //fetch filtered products
+loadFilteredResults(myFilters.filters) //fetch filtered products
 setMyFilters(newFilters)
 }
 
@@ -126,7 +126,7 @@ return array; //return array after looping
 </div>
             </div>
             <div className="col-8">
-rigth {JSON.stringify(myFilters)}
+rigth {JSON.stringify(filteredResults)}
             </div>
 
             </div>
