@@ -32,7 +32,7 @@ setRelatedProduct(data);
 useEffect(() => {
 const productId = props.match.params.productId //grabbing from url when component mounts
 loadSingleProduct(productId)
-}, [])
+}, [props]) //props there, because whenever there is a change in the props, excecute useEffect
 
     return (
         <Layout title={product && product.name} 
