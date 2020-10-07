@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import Layout from './Layout';
-import {read} from './apiCore';
+import { read, listRelated} from './apiCore';
 import Card from './Card';
 
 
 const Product = (props) => {
     const [product, setProduct] = useState({}) //state to hold product
+    const [relatedProduct, setRelatedProduct] = useState([])
     const [error, setError] = useState(false) //state for error
 
 const loadSingleProduct = productId => {
@@ -13,7 +14,16 @@ const loadSingleProduct = productId => {
         if(data.error){
             setError(data.error)
         } else {
-            setProduct(data)
+            setProduct(data); //setting product in the state
+            //fetch relatedProducts; listRelated is in apiCOre
+listRelated(data._id).then(data => {
+    if(data.error){
+        setError(data.error);
+    } else { //populate
+setRelatedProduct(data);
+    }
+}
+)
         }
     })
 
@@ -31,9 +41,19 @@ loadSingleProduct(productId)
         className="container-fluid">
 
 <div className="row">
+<div className="col-8">
 {product && product.description &&
-<Card product={product} showViewProductButton={false} />
-}
+<Card product={product} showViewProductButton={false} />}
+</div>
+<div className="col-4">
+<h4>Related products</h4>
+{relatedProduct.map((product, index) => (
+    <div className="mb-3">
+<Card key={index} product={product} />
+    </div>
+))} 
+</div>
+
 </div>
 
         </Layout>
