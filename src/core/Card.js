@@ -1,10 +1,12 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
+import React, {useState} from 'react';
+import {Link, Redirect} from 'react-router-dom';
 import ShowImage from './ShowImage';
 import moment from 'moment'; //time and date displayed user friendly (npm install moment)
+import {addItem} from './cartHelpers';
 
 //default value of showViewProductButton is true. prom comes from Product component
 const Card = ({ product, showViewProductButton = true}) => {
+ const [redirect, setRedirect] = useState(false)   
     
     const showViewButton = (showViewProductButton) => {
         return ( //if it's true then show
@@ -16,9 +18,23 @@ const Card = ({ product, showViewProductButton = true}) => {
         )
     }
     
+const addToCart = () => { //argument product, it's in this component props
+    addItem(product, () => {//second argument callback function, as it is in addItem function (cardHelspers.js)
+//in callback redirect to state
+setRedirect(true)
+    }) 
+}
+
+//first make sure getting redirect
+const shouldRedirect = redirect => {
+if(redirect){
+    return <Redirect to="/cart" />
+}
+}
+
 const showAddToCartButton = () => {
     return (
-<button className="btn btn-outline-warning mt-2 mb-2">
+<button onClick={addToCart} className="btn btn-outline-warning mt-2 mb-2">
         Add to Cart
 </button>
     )
@@ -34,6 +50,7 @@ const showStock = (quantity) => {
 <div className="card">
     <div className="card-header name">{product.name}</div>
     <div className="card-body">
+        {shouldRedirect(redirect)}
         <ShowImage item={product} url="product" />
         <p className="lead mt-2">{product.description.substring(0, 100)}</p>
     <p className="black-10">{product.price}€</p>

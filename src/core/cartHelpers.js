@@ -1,0 +1,22 @@
+export const addItem = (item, next) => { //add  item to local storage. need item(product), use callback to do something when
+let cart = [] //empty cart
+if (typeof window !== 'undefined') {
+    if(localStorage.getItem('cart')){ //getItem() method to get item from localStorage. name of the item
+cart = JSON.parse(localStorage.getItem('cart')) //populate all products in cart variable, had to be in json format
+    }
+    cart.push({ //add item, push new item
+        ...item, //item from the parameter
+        count: 1 //by default 1
+    })
+
+    //create a new array to make sure there is no duplicate, when item clicked twice
+    //create new array. Set automatically removes the duplicate. Then again map on the 
+    //new array and return cart using find method and compare id with id from new array
+cart = Array.from(new Set(cart.map((product) => (product._id)))).map(id => {
+    return cart.find(product => product._id === id) //compara the _id got to id from the array
+});
+
+localStorage.setItem('cart', JSON.stringify(cart));
+next()
+}
+}
