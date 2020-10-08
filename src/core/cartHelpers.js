@@ -19,4 +19,15 @@ cart = Array.from(new Set(cart.map((product) => (product._id)))).map(id => {
 localStorage.setItem('cart', JSON.stringify(cart));
 next()
 }
+};
+
+
+//get total number of items in the cart
+export const itemTotal = () => {
+    if(typeof window !== 'undefined'){
+        if(localStorage.getItem('cart')){ //checking if there are any items in the cart
+            return JSON.parse(localStorage.getItem('cart')).length; //grabbing length
+        }
+    }
+    return 0; //otherwise return 0 by defaukt
 }
