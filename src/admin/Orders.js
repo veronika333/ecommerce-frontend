@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Layout from "../core/Layout";
 import { isAuthenticated } from "../auth/index";
 import { Link } from "react-router-dom";
-import { listOrders, getStatusValues } from "./apiAdmin"; //to get orders from the backend
+import { listOrders, getStatusValues, updateOrderStatus } from "./apiAdmin"; //to get orders from the backend
 import moment from "moment";
 
 //@get Orders from the backend
@@ -33,6 +33,8 @@ const Orders = () => {
     });
   };
 
+  //@Update Order status
+
   useEffect(() => {
     loadOrders();
     loadStatusValues();
@@ -59,9 +61,15 @@ const Orders = () => {
     </div>
   );
 
-  //@Status change handler - make request tot he backend to update order status
-  const handleStatusChange = () => {
-    console.log("update order status");
+  //@Status change handler - make request to the backend to update order status
+  const handleStatusChange = (e, orderId) => {
+    updateOrderStatus(user._id, token, orderId, e.target.value).then((data) => {
+      if (data.error) {
+        console.log("Status update failed!");
+      } else {
+        loadOrders();
+      }
+    });
   };
 
   //@Show the status values options - according to its current state
