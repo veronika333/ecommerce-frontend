@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import Layout from "../core/Layout";
 import { isAuthenticated } from "../auth/index";
 import { Link } from "react-router-dom";
-import { listOrders } from "./apiAdmin"; //to get orders from the backend
+import { listOrders, getStatusValues } from "./apiAdmin"; //to get orders from the backend
 import moment from "moment";
 
 //@get Orders from the backend
 const Orders = () => {
   const [orders, setOrders] = useState([]);
+  const [statusValues, setStatusValues] = useState([]);
 
   const { user, token } = isAuthenticated();
 
@@ -21,8 +22,20 @@ const Orders = () => {
     });
   };
 
+  //@StatusValues from the apiAdmin (getting from the backend)
+  const loadStatusValues = () => {
+    getStatusValues(user._id, token).then((data) => {
+      if (data.error) {
+        console.log(data.error);
+      } else {
+        setStatusValues(data); //set the status value according to the current status (shipped, processing) etc
+      }
+    });
+  };
+
   useEffect(() => {
     loadOrders();
+    loadStatusValues();
   }, []);
 
   //@Display orders
@@ -46,6 +59,29 @@ const Orders = () => {
     </div>
   );
 
+  //@Status change handler - make request tot he backend to update order status
+  const handleStatusChange = () => {
+    console.log("update order status");
+  };
+
+  //@Show the status values options - according to its current state
+  const showStatus = (o) => (
+    <div className="form-group">
+      <h3 className="mark mb-4">Status: {o.status}</h3>
+      <select
+        className="form-control"
+        onChange={(e) => handleStatusChange(e, o._id)}
+      >
+        <option>Update Status</option>
+        {statusValues.map((status, index) => (
+          <option key={index} value={status}>
+            {status}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+
   return (
     <Layout
       title="Orders"
@@ -65,7 +101,7 @@ const Orders = () => {
                   <span className="bg-pimary">Order ID:{o._id}</span>
                 </h2>
                 <ul className="list-group mb-2">
-                  <li className="list-group-item">{o.status}</li>
+                  <li className="list-group-item">{showStatus(o)}</li>
                   <li className="list-group-item">
                     Transaction ID: {o.transaction_id}
                   </li>
