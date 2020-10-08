@@ -73,3 +73,19 @@ export const listOrders = async (userId, token) => {
     return console.log(err);
   }
 };
+
+//@get all Status values from the backend - send t o Order comp
+export const getStatusValues = async (userId, token) => {
+  try {
+    const response = await fetch(`${API}/order/status-values/${userId}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.json();
+  } catch (err) {
+    return console.log(err);
+  }
+};
