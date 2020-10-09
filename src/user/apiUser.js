@@ -50,3 +50,20 @@ export const updateUser = (user, next) => {
     }
   }
 };
+
+//@get user's purchase history - to userdashboard
+export const getPurchaseHistory = async (userId, token) => {
+  try {
+    const response = await fetch(`${API}/orders/by/user/${userId}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.json();
+  } catch (err) {
+    console.log(err);
+  }
+};
