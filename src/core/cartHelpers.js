@@ -41,3 +41,19 @@ export const getCart = () => {
     }
     return []; //if there are no items in the cart, return empty array
 }
+
+
+export const updateItem = (productId, count) => {
+let cart = [] //cart is empty array to start
+if(typeof window !== 'undefined'){
+  if(localStorage.getItem('cart')){  //if there is cart in the localStorage
+      cart = JSON.parse(localStorage.getItem('cart')) //get the value and put into cart variable
+  } 
+  cart.map((product, index) => { //map through each and match product id
+     if(product._id === productId){ //if matches
+         cart[index].count = count //updating product count
+     } 
+  }) 
+  localStorage.setItem('cart', JSON.stringify(cart)); //setting back localStorage
+}
+}

@@ -1,13 +1,16 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {Link, Redirect} from 'react-router-dom';
 import ShowImage from './ShowImage';
 import moment from 'moment'; //time and date displayed user friendly (npm install moment)
-import {addItem} from './cartHelpers';
+import { addItem, updateItem } from './cartHelpers';
 
-//showAddToCart props from Cart component
+//showAddToCart props from Cart component; cartUpdate props from Cart component
 //default value of showViewProductButton is true. prom comes from Product component
-const Card = ({ product, showViewProductButton = true, showAddToCartButton = true}) => {
- const [redirect, setRedirect] = useState(false)   
+const Card = ({ product, showViewProductButton = true, 
+    showAddToCartButton = true,
+    cartUpdate = false}) => {
+ const [redirect, setRedirect] = useState(false);
+ const [count, setCount] = useState(product.count);   //default value is what's already there, produc is coming from localStorage "cart"
     
     const showViewButton = (showViewProductButton) => {
         return ( //if it's true then show
@@ -47,6 +50,29 @@ const showStock = (quantity) => {
     (<span>Out of stock</span>)
 }
 
+//higher order function, returning another function. 
+const handleChange = productId => event => {
+//set count, update the state
+//user cannot update product quantity to negative or 0; if it's smaller than 1, using 1 as default
+setCount(event.target.value < 1 ? 1 : event.target.value) //whatever user types in input, grabbibg the event
+if(event.target.value >= 1) {
+    updateItem(productId, event.target.value)
+}
+}
+
+const showCartUpdatedOptions = (cartUpdate) => {
+return cartUpdate && (
+<div>
+    <div className="input-group mb-3">
+        <div className="input-group-prepend">
+<span className="input-group-text">Adjust quantity</span>
+        </div>
+<input type="number" className="form-control" value={count} onChange={handleChange(product._id)} /> 
+    </div>
+</div>
+    )
+}
+
     return ( 
 <div className="card">
     <div className="card-header name">{product.name}</div>
@@ -65,7 +91,7 @@ const showStock = (quantity) => {
 <br />    
 {showViewButton(showViewProductButton)}
 {showAddToCart(showAddToCartButton)} 
-  
+{showCartUpdatedOptions(cartUpdate)}  
     </div>
 </div>
       
