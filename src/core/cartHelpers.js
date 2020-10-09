@@ -31,3 +31,13 @@ export const itemTotal = () => {
     }
     return 0; //otherwise return 0 by defaukt
 }
+
+//get the cart from the local storage
+export const getCart = () => {
+    if(typeof window !== 'undefined'){
+        if(localStorage.getItem('cart')){ //checking if there are any items in the cart
+            return JSON.parse(localStorage.getItem('cart')); //grabbing length
+        }
+    }
+    return []; //if there are no items in the cart, return empty array
+}
