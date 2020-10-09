@@ -11,6 +11,7 @@ import AddCategory from "./admin/AddCategory";
 import AddProduct from "./admin/AddProduct";
 import Shop from "./core/Shop";
 import Orders from "./admin/Orders";
+import Profile from "./user/Profile";
 
 export default function Routes() {
   return (
@@ -25,6 +26,9 @@ export default function Routes() {
           exact
           component={UserDashboard}
         ></PrivateRoute>
+
+        <PrivateRoute path="/profile/:userId" exact component={Profile} />
+
         <AdminRoute
           path="/admin/dashboard"
           exact

@@ -16,7 +16,7 @@ import { Link } from 'react-router-dom';
     <Link className="nav-link" to="/cart">My cart</Link>
 </li>
 <li className="list-group-item">
-    <Link className="nav-link" to="/profile/update">Update profile</Link>
+    <Link className="nav-link" to={`/profile/${_id}`}>Update profile</Link>
 </li>
 </ul>
         </div>
