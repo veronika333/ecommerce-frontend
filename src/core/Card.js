@@ -4,8 +4,9 @@ import ShowImage from './ShowImage';
 import moment from 'moment'; //time and date displayed user friendly (npm install moment)
 import {addItem} from './cartHelpers';
 
+//showAddToCart props from Cart component
 //default value of showViewProductButton is true. prom comes from Product component
-const Card = ({ product, showViewProductButton = true}) => {
+const Card = ({ product, showViewProductButton = true, showAddToCartButton = true}) => {
  const [redirect, setRedirect] = useState(false)   
     
     const showViewButton = (showViewProductButton) => {
@@ -32,8 +33,8 @@ if(redirect){
 }
 }
 
-const showAddToCartButton = () => {
-    return (
+const showAddToCart = (showAddToCartButton) => {
+    return showAddToCartButton && (
 <button onClick={addToCart} className="btn btn-outline-warning mt-2 mb-2">
         Add to Cart
 </button>
@@ -63,7 +64,7 @@ const showStock = (quantity) => {
 {showStock(product.quantity)}   
 <br />    
 {showViewButton(showViewProductButton)}
-{showAddToCartButton()}
+{showAddToCart(showAddToCartButton)} 
   
     </div>
 </div>
