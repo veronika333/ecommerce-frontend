@@ -57,3 +57,20 @@ if(typeof window !== 'undefined'){
   localStorage.setItem('cart', JSON.stringify(cart)); //setting back localStorage
 }
 }
+
+
+export const removeItem = (productId) => {
+    let cart = [] //cart is empty array to start
+    if(typeof window !== 'undefined'){
+      if(localStorage.getItem('cart')){  //if there is cart in the localStorage
+          cart = JSON.parse(localStorage.getItem('cart')) //get the value and put into cart variable
+      } 
+      cart.map((product, index) => { //map through each and match product id
+         if(product._id === productId){ //if matches
+             cart.splice(index, 1)  //get one particular item and take it out
+         } 
+      }) 
+      localStorage.setItem('cart', JSON.stringify(cart)); //setting back localStorage
+    }
+    return cart;
+    }
