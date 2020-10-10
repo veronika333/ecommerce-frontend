@@ -6,7 +6,7 @@ import Card from './Card';
 import {isAuthenticated} from '../auth';
 
 //get all the products in the cart and calculate total
-const Checkout = ({products}) => {
+const Checkout = ({products, setRun = f => f, run = undefined}) => {
     const getTotal = () => { //doc mozilla: array.prototype.reduce()
         return products.reduce((currentValue, nextValue) => {
 return currentValue + nextValue.count * nextValue.price;
