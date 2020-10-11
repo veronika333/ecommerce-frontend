@@ -36,7 +36,7 @@ loadSingleProduct(productId)
 
     return (
         <Layout title={product && product.name} 
-        descriptio={product &&
+        description={product &&
             product.description && product.description.substring(0, 100)} 
         className="container-fluid">
 

@@ -39,7 +39,7 @@ const noItemsMessage = () => (
 
     return (
         <Layout title="Shopping Cart" 
-        descriptio="Manage your cart items. Add, remove, checkout." 
+        description="Manage your cart items. Add, remove, checkout." 
         className="container-fluid">
 <div className="row">
 <div className="col-6">

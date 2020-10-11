@@ -30,7 +30,7 @@ loadProductsBySell()
 
 return (
         <Layout title="Home Page" 
-        descriptio="Node React E-commerce App" 
+        description="Node React E-commerce App" 
         className="container-fluid">
 
 <Search />

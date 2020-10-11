@@ -50,3 +50,59 @@ export const getCategories = () => {
     })
     .catch(err => console.log(err))
 };
+
+
+//get all the products, get a single product, update single product, delete single product
+
+export const getProducts = () => {
+    return fetch(`${API}/products`, {
+        method: "GET"
+    })
+    .then(response => { //if get response, return it in json
+        return response.json();
+    })
+    .catch(err => console.log(err))
+};
+
+export const deleteProduct = (productId, userId, token) => {
+return fetch(`${API}/product/${productId}/${userId}`, {
+    method: "DELETE",
+    headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+    }
+})
+.then(response => {
+    return response.json()
+})
+.catch(error => console.log(error));
+}
+
+export const getProduct = (productId) => {
+    return fetch(`${API}/product/${productId}`, {
+        methog: 'GET'
+    })
+    .then(response => {
+        return response.json
+    })
+    .catch(error => console.log(error))
+}
+
+//the last argument - product. whatever changes will be made, need to send as product
+export const updateProduct = (productId, userId, token, product) => {
+    return fetch(`${API}/product/${productId}/${userId}`, {
+        method: "PUT",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+        },
+        body: product //no json.stringify, because will have image => form data
+    })
+    .then(response => {
+        return response.json()
+    })
+    .catch(error => console.log(error));
+    }
+    
