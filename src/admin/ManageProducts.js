@@ -44,9 +44,13 @@ loadProducts()
         className="container-fluid">
 <div className="row">
     <div className="col-12">
+    <h2 className="text-center">
+        Total: {products.length} products
+        </h2>
+        <hr />
 <ul className="list-group">
     {products.map((product, index) => (
-<li key={index} className="list-group d-flex justify-content-between
+<li key={index} className="list-group-item d-flex justify-content-between
 align-items-center">
 <strong>{product.name}</strong>
 <Link to={`/admin/product/update/${product._id}`}>

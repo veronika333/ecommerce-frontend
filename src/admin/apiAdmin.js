@@ -55,7 +55,7 @@ export const getCategories = () => {
 //get all the products, get a single product, update single product, delete single product
 
 export const getProducts = () => {
-    return fetch(`${API}/products`, {
+    return fetch(`${API}/products?limit=100`, { //changing the limit, because it was set to 6
         method: "GET"
     })
     .then(response => { //if get response, return it in json
