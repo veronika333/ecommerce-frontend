@@ -42,10 +42,10 @@ export const update = async (userId, token, user) => {
 //essential to do for users to see immediate changes to their updates without having to sign out first
 export const updateUser = (user, next) => {
   if (typeof window !== "undefined") {
-    if (localStorage.getItem("jwt")) {
-      let auth = JSON.parse(localStorage.getItem("jwt")); //update the user if there's jwt token
+    if (localStorage.getItem("myDataKey")) {
+      let auth = JSON.parse(localStorage.getItem("myDataKey")); //update the user if there's jwt token
       auth.user = user; //change the jwt user property to the user (updated version)
-      localStorage.setItem("jwt", JSON.stringify(auth)); //set the updated version as the new profile/user
+      localStorage.setItem("myDataKey", JSON.stringify(auth)); //set the updated version as the new profile/user
       next();
     }
   }
