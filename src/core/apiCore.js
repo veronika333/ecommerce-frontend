@@ -102,6 +102,41 @@ export const processPayment = async (userId, token, paymentData) => {
   }
 };
 
+
+export const list = params => { //passing parameters
+    const query = queryString.stringify(params) //to send a proper query string to backend
+   console.log('query', query)
+    return fetch(`${API}/products/search?${query}`, {
+        method: "GET"
+    })
+    .then(response => { //if get response, return it in json
+        return response.json();
+    })
+    .catch(err => console.log(err))
+};
+
+
+export const read = (productId) => {
+    return fetch(`${API}/product/${productId}`, {
+        method: "GET"
+    })
+    .then(response => { //if get response, return it in json
+        return response.json();
+    })
+    .catch(err => console.log(err))
+};
+
+
+export const listRelated = (productId) => { //pass productId as a parameter
+    return fetch(`${API}/products/related/${productId}`, {
+        method: "GET"
+    })
+    .then(response => { //if get response, return it in json
+        return response.json();
+    })
+    .catch(err => console.log(err))
+};
+
 //@Send order information to the backend to show what the user is purchasing
 export const createOrder = async (userId, token, createOrderData) => {
   try {
@@ -121,3 +156,4 @@ export const createOrder = async (userId, token, createOrderData) => {
     return console.log(err);
   }
 };
+

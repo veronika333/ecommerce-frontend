@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom'; // withRouter allows to access props history
 import { signout, isAuthenticated } from '../auth/index';
+import { itemTotal } from './cartHelpers';
 
 // if the link is active, return different color
 const isActive = (history, path) => {
@@ -21,6 +22,11 @@ function Menu( { history } ){
     <Link className="nav-link" to="/shop" style={isActive(history, '/shop')}>Shop</Link>
 </li>
 
+<li className="nav-item">
+    <Link className="nav-link" to="/cart" style={isActive(history, '/cart')}>
+    Cart <sup><small className="cart-badge">{itemTotal()} items</small></sup>
+        </Link>
+</li>
 {/* if the user is authenticated and it's user(not admin),
 then it's standard user => show user dashboard */}
 

@@ -16,8 +16,8 @@ filters: { category: [], price: [] } //filters contain categories and price
     const [error, setError] = useState(false);
     const [limit, setLimit] = useState(6);
     const [skip, setSkip] = useState(0);
-    // const [size, setSize] = useState(0);
-    const [filteredResults, setFilteredResults] = useState(0);
+    const [size, setSize] = useState(0);
+    const [filteredResults, setFilteredResults] = useState([]);
 
 //load categories 
 const init = () => {
@@ -37,34 +37,35 @@ if(data.error){
 setError(data.error)
 } else {
 //take everything in filteredResults and then pass the data
-setFilteredResults(data); //checked in console in network, everytning inside data
-// setSize(data.size) //ow many products getting
-// setSkip(0) //later can use it to load more
+setFilteredResults(data.data); //checked in console in network, everytning inside data
+setSize(data.size) //ow many products getting
+setSkip(0) //later can use it to load more
 }
 })
 }
 //load more method
 
-// const loadMore = () => {
-//    let toSkip = skip + limit //skip whatever is in the state + limit
-//     getFilteredProducts(toSkip, limit, myFilters.filters).then(data => {
-//         if(data.error){
-//             setError(data.error)
-//         } else {
-//  setFilteredResults([...filteredResults, ...data.data]); //check whatever is in the state and add data
-//  setSize(data.size)    //setting size again  
-//  setSkip(toSkip)
-//  }
-//     })
-//  }
+const loadMore = () => {
+   let toSkip = skip + limit //skip whatever is in the state + limit
+    getFilteredProducts(toSkip, limit, myFilters.filters).then(data => {
+        if(data.error){
+            setError(data.error)
+        } else {
+ setFilteredResults([...filteredResults, ...data.data]); //check whatever is in the state and add data
+ setSize(data.size)    //setting size again  
+ setSkip(toSkip)
+ }
+    })
+ }
 
-// const loadMoreButton = () => {
-//     return (
-//         size > 0 && size >= limit && (
-//             <button onClick={loadMore} className="btn btn-warning mb-5">Load more</button>
-//         )
-//     )
-// }
+const loadMoreButton = () => {
+    return (
+        size > 0 && size >= limit && (
+            <button onClick={loadMore} className="btn btn-warning mb-5">Load more</button>
+        )
+    )
+}
+
 useEffect(() => {
 init()
 loadFilteredResults(skip, limit, myFilters.filters)
@@ -109,29 +110,39 @@ return array; //return array after looping
 
 
     return (
-        <Layout title="Shop Page" description="Shop and find makeups of your choice" className="container-fluid">
-           <div className="row">
-            <div className="col-4">
-            <h4>Filter by categories</h4>
-                <ul>
-            <Checkbox categories={categories}
-            handleFilters={filters => handleFilters(filters, 'category')}
-             />
-            </ul>
+//         <Layout title="Shop Page" description="Shop and find makeups of your choice" className="container-fluid">
+//            <div className="row">
+//             <div className="col-4">
+//             <h4>Filter by categories</h4>
+//                 <ul>
+//             <Checkbox categories={categories}
+//             handleFilters={filters => handleFilters(filters, 'category')}
+//              />
+//             </ul>
             
-            <h4>Filter by price range</h4>
-<div>
-        <RadioBox prices={prices} 
-        handleFilters={filters => 
-        handleFilters(filters, 'price')} />
-</div>
-            </div>
-            <div className="col-8">
-rigth {JSON.stringify(filteredResults)}
-            </div>
+//             <h4>Filter by price range</h4>
+// <div>
+//         <RadioBox prices={prices} 
+//         handleFilters={filters => 
+//         handleFilters(filters, 'price')} />
+// </div>
+//             </div>
+//             <div className="col-8">
 
-            </div>
-{/* <div className="row">
+// {filteredResults.map((product, index) => (
+   
+//    <Card key={index} product={product} />
+   
+//    ))}
+//             </div>
+
+//             </div>
+
+
+
+
+<Layout title="Shop Page" description="Shop and find makeups of your choice" className="container-fluid">
+<div className="row">
     <div className="col-4">
 
         <h4>Filter by categories</h4>
@@ -153,15 +164,15 @@ rigth {JSON.stringify(filteredResults)}
    <h2 className="mb-4">Products</h2>
    <div className="row"> 
 {filteredResults.map((product, index) => (
-   
-<Card key={index} product={product} />
-
+   <div key={index} className="col-4 mb-3">
+  <Card product={product} />
+       </div>
 ))}
    </div>
    <hr />
-   {loadMoreButton()}
+   {loadMoreButton()} 
    </div>
-</div> */}
+</div> 
 
         </Layout>
     )
