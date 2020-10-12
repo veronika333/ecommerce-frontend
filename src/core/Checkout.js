@@ -47,7 +47,7 @@ const Checkout = ({ products, setRun = (f) => f, run = undefined }) => {
   //@show DropIn interface if authenticated
   const showCheckout = () => {
     return isAuthenticated() ? (
-      <div className="btn btn-success">{showDropIn()}</div>
+      <div>{showDropIn()}</div>
     ) : (
       <Link to="/signin">
         <button className="btn btn-primary">Sign in to checkout</button>
@@ -66,7 +66,7 @@ const Checkout = ({ products, setRun = (f) => f, run = undefined }) => {
             }}
             onInstance={(instance) => (data.instance = instance)} //replaces the state of the instance
           />
-          <button className="btn btn-success">Checkout</button>
+          <button className="btn btn-success">Pay</button>
         </div>
       ) : null}
     </div>
