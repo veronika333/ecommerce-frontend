@@ -4,10 +4,6 @@ import { isAuthenticated } from "../auth/index";
 import { Link } from "react-router-dom";
 
 const AdminDashboard = () => {
-  const {
-    user: { _id, name, email, role },
-  } = isAuthenticated(); //destructing isAuthenticated
-
 
  const {user: {_id, name, email, role}} = isAuthenticated()   //destructing isAuthenticated
    

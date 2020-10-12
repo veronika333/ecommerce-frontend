@@ -39,7 +39,7 @@ const init = (productId) => {
             //populate the state
             setValues({...values, name: data.name,
             description: data.description, price: data.price,
-        //category: data.category._id, 
+        category: data.category._id, 
         shipping: data.shipping,
     quantity: data.quantity, formData: new FormData()})
             //load categories
