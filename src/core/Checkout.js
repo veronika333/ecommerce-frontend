@@ -5,6 +5,7 @@ import {
   getProducts,
   getBraintreeClientToken,
   processPayment,
+  createOrder,
 } from "./apiCore";
 import { emptyCart } from "./cartHelpers";
 import Card from "./Card";
@@ -42,6 +43,11 @@ const Checkout = ({ products, setRun = (f) => f, run = undefined }) => {
   useEffect(() => {
     getToken(userId, token);
   }, []);
+
+  //@Address handler
+  const handleAddress = (e) => {
+    setData({ ...data, address: e.target.value });
+  };
 
   //@Calculate total price for products
   const getTotal = () => {
@@ -82,9 +88,20 @@ const Checkout = ({ products, setRun = (f) => f, run = undefined }) => {
         processPayment(userId, token, paymentData)
           .then((response) => {
             console.log(response);
-            setData({ ...data, success: response.success });
+
+            //@send order info to db
 
             //empty cart
+            const createOrderData = {
+              products: products,
+              transaction_id: response.transaction.id,
+              amount: response.transaction.amount,
+              address: data.address,
+            };
+
+            createOrder(userId, token, createOrderData);
+
+            setData({ ...data, success: response.success });
             emptyCart(() => {
               console.log("Payment success and empty cart");
               // setData({ loading: false });
@@ -107,6 +124,15 @@ const Checkout = ({ products, setRun = (f) => f, run = undefined }) => {
     <div onBlur={() => setData({ ...data, error: "" })}>
       {data.clientToken !== null && products.length > 0 ? (
         <div>
+          <div className="form-group mb-3">
+            <label className="text-muted">Delivery address:</label>
+            <textarea
+              className="form-control"
+              onChange={handleAddress}
+              value={data.address}
+              placeholder="Type your delivery address here..."
+            />
+          </div>
           <DropIn
             options={{
               authorization: data.clientToken,
