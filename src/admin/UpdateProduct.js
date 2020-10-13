@@ -12,7 +12,7 @@ description: '',
 price: '',
 categories: [],
 category: '',
-shipping: '',
+// shipping: '',
 quantity: '',
 photo: '',
 loading: false,
@@ -25,7 +25,8 @@ formData: '' //empty at the beginning
 const {user, token} = isAuthenticated(); //destructing
 //destruct values from the state, so that it's easy to use in the form
 const {
-   name, description, price, categories, category, shipping, 
+   name, description, price, categories, category, 
+//    shipping, 
    quantity, loading, error, createdProduct, redirectToProfile,
    formData 
 } = values;
@@ -38,10 +39,12 @@ const init = (productId) => {
         } else {
             //populate the state
             setValues({...values, name: data.name,
-            description: data.description, price: data.price,
+            description: data.description, 
+            price: data.price,
         category: data.category._id, 
-        shipping: data.shipping,
-    quantity: data.quantity, formData: new FormData()})
+        // shipping: data.shipping,
+    quantity: data.quantity, 
+    formData: new FormData()})
             //load categories
             initCategories()
         }
@@ -55,6 +58,7 @@ const initCategories = () => {
         if(data.error){
             setValues({...values, error: data.error})
         } else {
+            // setValues({categories: data, formData: new FormData()})
             setValues({categories: data, formData: new FormData()})
         }
     })
@@ -130,14 +134,14 @@ const newPostForm = () => (
     </select>
 </div>
 
-<div className="form-group">
+{/* <div className="form-group">
     <label className="text-muted">Shipping</label>
     <select onChange={handleChange('shipping')} className="form-control">
     <option>Please select</option>
     <option value="0">No</option>
     <option value="1">Yes</option>
     </select>
-</div>
+</div> */}
 
 <div className="form-group">
     <label className="text-muted">Quantity</label>
@@ -176,7 +180,7 @@ return <Redirect to="/" />
 }
 
     return (
-        <Layout title="Add a new product" description={`Hello ${user.name}! Are you ready to add a new product?`}>
+        <Layout title="Update the product" description={`Hello ${user.name}! Are you ready to add a new product?`}>
         <div className="row">
         <div className="col-md-8 offset-md-2"> 
         {showLoading()}
