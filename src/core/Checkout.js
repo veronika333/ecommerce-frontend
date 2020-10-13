@@ -15,6 +15,7 @@ import DropIn from "braintree-web-drop-in-react";
 const Checkout = ({ products, setRun = (f) => f, run = undefined }) => {
   //1. @State for token
   const [data, setData] = useState({
+    // loading: false,
     success: false,
     clientToken: null,
     error: "",
@@ -63,6 +64,7 @@ const Checkout = ({ products, setRun = (f) => f, run = undefined }) => {
 
   //@Buy func- to send nonce to server - nonce:data.instance.requestPaymentMethod()
   const buy = () => {
+    setData({ loading: true });
     let nonce;
     let getNonce = data.instance
       .requestPaymentMethod()
@@ -71,13 +73,6 @@ const Checkout = ({ products, setRun = (f) => f, run = undefined }) => {
         nonce = data.nonce;
         //once you get the nonce (card type, card nmber) send nonce as 'PaymentMethodNonce'
         // also send the total amount to be charged to the backend
-
-        // console.log(
-        //   "Send nonce and total process: ",
-        //   nonce,
-        //   getTotal(products)
-        // );
-
         //send data to the backend when the 'buy' button is clicked
         const paymentData = {
           paymentMethodNonce: nonce,
@@ -92,12 +87,13 @@ const Checkout = ({ products, setRun = (f) => f, run = undefined }) => {
             //empty cart
             emptyCart(() => {
               console.log("Payment success and empty cart");
+              // setData({ loading: false });
             });
-
-            //create a new order
           })
-
-          .catch((error) => console.log(error));
+          .catch((error) => {
+            console.log(error);
+            // setData({ loading: false });
+          });
       })
       .catch((error) => {
         // console.log("DropIn error: ", error);
@@ -148,9 +144,13 @@ const Checkout = ({ products, setRun = (f) => f, run = undefined }) => {
     </div>
   );
 
+  //@Show loading
+  // const showLoading = (loading) => loading && <h2>Loading...</h2>;
+
   return (
     <div>
       <h2>Total: ${getTotal()}</h2>
+
       {showSuccess(data.success)}
       {showError(data.error)}
       {showCheckout()}
@@ -159,3 +159,5 @@ const Checkout = ({ products, setRun = (f) => f, run = undefined }) => {
 };
 
 export default Checkout;
+
+/* {showLoading(data.loading)} */
