@@ -37,6 +37,7 @@ const Checkout = ({ products, setRun = (f) => f, run = undefined }) => {
     getToken(userId, token);
   }, []);
 
+  //@Calculate total price for products
   const getTotal = () => {
     //doc mozilla: array.prototype.reduce()
     return products.reduce((currentValue, nextValue) => {
@@ -55,6 +56,28 @@ const Checkout = ({ products, setRun = (f) => f, run = undefined }) => {
     );
   };
 
+  //@Buy func- to send nonce to server - nonce:data.instance.requestPaymentMethod()
+  const buy = () => {
+    let nonce;
+    let getNonce = data.instance
+      .requestPaymentMethod()
+      .then((data) => {
+        console.log(data);
+        nonce = data.nonce;
+        //once you get the nonce (card type, card nmber) send nonce as 'PaymentMethodNonce'
+        // also send the total amount to be charged to the backend
+        console.log(
+          "Send nonce and total amount to: ",
+          nonce,
+          getTotal(products)
+        );
+      })
+      .catch((error) => {
+        console.log("DropIn error: ", error);
+        setData({ ...data, error: error.message });
+      });
+  };
+
   //@show drop in UI - when the data contains a token - used inshowCheckOt above
   const showDropIn = () => (
     <div>
@@ -66,7 +89,9 @@ const Checkout = ({ products, setRun = (f) => f, run = undefined }) => {
             }}
             onInstance={(instance) => (data.instance = instance)} //replaces the state of the instance
           />
-          <button className="btn btn-success">Pay</button>
+          <button onClick={buy} className="btn btn-success">
+            Pay
+          </button>
         </div>
       ) : null}
     </div>
