@@ -97,9 +97,20 @@ const Checkout = ({ products, setRun = (f) => f, run = undefined }) => {
     </div>
   );
 
+  //@Checkout error message - if any
+  const showError = (error) => (
+    <div
+      className="alert alert-danger"
+      style={{ display: error ? "" : "none" }}
+    >
+      {error}
+    </div>
+  );
+
   return (
     <div>
       <h2>Total: ${getTotal()}</h2>
+      {showError(data.error)}
       {showCheckout()}
     </div>
   );
