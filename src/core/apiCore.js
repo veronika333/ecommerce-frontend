@@ -138,7 +138,7 @@ export const processPayment = (userId, token, paymentData) => {
         .then((response) => {
           return response.json();
         })
-        .then((jsonData) => resolve(jsonData));
+        .then((paymentData) => resolve(paymentData));
     } catch (err) {
       return console.log(err);
     }
