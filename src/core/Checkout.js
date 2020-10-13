@@ -79,8 +79,9 @@ const Checkout = ({ products, setRun = (f) => f, run = undefined }) => {
   };
 
   //@show drop in UI - when the data contains a token - used inshowCheckOt above
+  //blur out error message when any part of the page is clicked
   const showDropIn = () => (
-    <div>
+    <div onBlur={() => setData({ ...data, error: "" })}>
       {data.clientToken !== null && products.length > 0 ? (
         <div>
           <DropIn
