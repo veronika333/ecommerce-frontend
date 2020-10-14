@@ -4,7 +4,7 @@ import { isAuthenticated } from '../auth/index';
 import { Link, Redirect } from 'react-router-dom';
 import { getProduct, getCategories, updateProduct } from './apiAdmin';
 
-const UpdateProduct = ({match}) => {
+const UpdateProduct = (props) => {
 
 const [values, setValues] = useState({ //object with properties of the product
 name: '',
@@ -12,7 +12,7 @@ description: '',
 price: '',
 categories: [],
 category: '',
-// shipping: '',
+shipping: '',
 quantity: '',
 photo: '',
 loading: false,
@@ -26,7 +26,7 @@ const {user, token} = isAuthenticated(); //destructing
 //destruct values from the state, so that it's easy to use in the form
 const {
    name, description, price, categories, category, 
-//    shipping, 
+ shipping, 
    quantity, loading, error, createdProduct, redirectToProfile,
    formData 
 } = values;
@@ -42,11 +42,11 @@ const init = (productId) => {
             description: data.description, 
             price: data.price,
         category: data.category._id, 
-        // shipping: data.shipping,
+        shipping: data.shipping,
     quantity: data.quantity, 
-    formData: new FormData()})
+    formData: new FormData()});
             //load categories
-            initCategories()
+            initCategories();
         }
     })
 }
@@ -66,8 +66,8 @@ const initCategories = () => {
 
 //useEffect runs everytime when the component mount (value changes)
 useEffect(() => { //update formData
-init(match.params.productId) //get product id from the route parameter
-}, [])
+init(props.match.params.productId) //get product id from the route parameter
+}, [props])
 
 //higher order function. grabs name, reterns another function, grabs event
 const handleChange = name => event => { //if its a photo, grab files and the first one
@@ -82,7 +82,7 @@ event.preventDefault(); //then empty errors, if there were any
 setValues({...values, error: '', loading: true});
 
 //now can use createProduct, need id and token from authorizedUser
-updateProduct(match.params.productId, user._id, token, formData)
+updateProduct(props.match.params.productId, user._id, token, formData)
 .then(data => {
     if(data.error){
         setValues({...values, error: data.error})

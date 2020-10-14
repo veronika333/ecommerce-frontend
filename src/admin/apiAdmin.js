@@ -35,7 +35,8 @@ export const createProduct = (userId, token, product) => {
         Authorization: `Bearer ${token}`,
       },
       //the actual data in the body
-      body: product,
+      //body: product,
+      body: product
     })
       //get either success or error
       .then((response) => {
@@ -97,23 +98,38 @@ export const getProduct = (productId) => {
 }
 
 //the last argument - product. whatever changes will be made, need to send as product
-export const updateProduct = (productId, userId, token, product) => {
-    return fetch(`${API}/product/${productId}/${userId}`, {
-        method: "PUT",
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`
-        },
-        body: product //no json.stringify, because will have image => form data
-    })
-    .then(response => {
-        return response.json()
-    })
-    .catch(error => console.log(error));
-    }
+// export const updateProduct = (productId, userId, token, product) => {
+//     return fetch(`${API}/product/${productId}/${userId}`, {
+//         method: "PUT",
+//         mode: 'cors',
+//         headers: {
+//             Accept: "application/json",
+//             "Content-Type": "application/json",
+//             //'Content-Type': 'application/x-www-form-urlencoded',
+//             Authorization: `Bearer ${token}`
+//         },
+//         body: product //no json.stringify, because will have image => form data
+//     })
+//     .then(response => {
+//         return response.json()
+//     })
+//     .catch(error => console.log(error));
+//     }
     
-
+export const updateProduct = (productId, userId, token, product) => {
+  return fetch(`${API}/product/${productId}/${userId}`, {
+      method: 'PUT',
+      headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`
+      },
+      body: product
+  })
+      .then(response => {
+          return response.json();
+      })
+      .catch(err => console.log(err));
+};
 //@Return all orders - req to the backend
 export const listOrders = async (userId, token) => {
   try {
