@@ -68,38 +68,48 @@ export const list = (params) => {
 };
 
 //@Braintree request to the backend to get braintree token for auth
-export const getBraintreeClientToken = async (userId, token) => {
-  try {
-    const response = await fetch(`${API}/braintree/getToken/${userId}`, {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return response.json();
-  } catch (err) {
-    return console.log(err);
-  }
+export const getBraintreeClientToken = (userId, token) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      await fetch(`${API}/braintree/getToken/${userId}`, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then((jsonData) => resolve(jsonData));
+    } catch (err) {
+      return console.log(err);
+    }
+  });
 };
 
 //@Process payment
-export const processPayment = async (userId, token, paymentData) => {
-  try {
-    const response = await fetch(`${API}/braintree/payment/${userId}`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(paymentData),
-    });
-    return response.json();
-  } catch (err) {
-    return console.log(err);
-  }
+export const processPayment = (userId, token, paymentData) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      await fetch(`${API}/braintree/payment/${userId}`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(paymentData),
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then((paymentData) => resolve(paymentData));
+    } catch (err) {
+      return console.log(err);
+    }
+  });
 };
 
 
@@ -135,21 +145,26 @@ export const listRelated = (productId) => { //pass productId as a parameter
 
 //@Send order information to the backend to show what the user is purchasing
 export const createOrder = async (userId, token, createOrderData) => {
-  try {
-    const response = await fetch(`${API}/order/create/${userId}`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        order: createOrderData,
-      }),
-    });
-    return response.json();
-  } catch (err) {
-    return console.log(err);
-  }
+  return new Promise(async (resolve, reject) => {
+    try {
+      await fetch(`${API}/order/create/${userId}`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          order: createOrderData,
+        }),
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then((jsonData) => resolve(jsonData));
+    } catch (err) {
+      return console.log(err);
+    }
+  });
 };
 
