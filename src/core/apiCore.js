@@ -28,7 +28,7 @@ export const getProducts = (sortBy) => {
       })
       .catch((err) => reject(console.log(err)));
   });
-
+ }
   //passing parameters
  /*  return fetch(`${API}/products?sortBy=${sortBy}&order=desc&limit=6`, {
     method: "GET",
