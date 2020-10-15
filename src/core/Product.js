@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import Layout from './Layout';
-import { read, listRelated} from './apiCore';
+import { read, listRelated } from './apiCore';
 import Card from './Card';
 
 
@@ -36,7 +36,7 @@ loadSingleProduct(productId)
 
     return (
         <Layout title={product && product.name} 
-        descriptio={product &&
+        description={product &&
             product.description && product.description.substring(0, 100)} 
         className="container-fluid">
 

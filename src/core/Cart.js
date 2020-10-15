@@ -41,6 +41,7 @@ const Cart = () => {
     </h2>
   );
 
+
   return (
     <Layout
       title="Shopping Cart"
@@ -59,6 +60,7 @@ const Cart = () => {
       </div>
     </Layout>
   );
+
 };
 
 export default Cart;
