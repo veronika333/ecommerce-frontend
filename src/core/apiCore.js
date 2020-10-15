@@ -122,8 +122,6 @@ export const list = (params) => {
 //   }
 // };
 
-///THESE BELOW ARE IN THE user BRANCH, JUST USE FOR TESTING HERE AND DELETE AFTERWARDS!!!
-
 //@Braintree request to the backend to get braintree token for auth
 export const getBraintreeClientToken = (userId, token) => {
   return new Promise(async (resolve, reject) => {
