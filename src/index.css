@@ -11,3 +11,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.nav {
+  background-color: #e6007e;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 1.5% 2.5% 1.5% 2.5%;
+}

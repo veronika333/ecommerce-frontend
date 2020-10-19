@@ -70,7 +70,8 @@ className="btn btn-outline-danger mt-2 mb-2">
 
 const showStock = (quantity) => {
     return quantity > 0 ? 
-(<span className="badge-primary badge-pill">In stock: {quantity}</span>) :
+//(<span className="badge-primary badge-pill">In stock: {quantity}</span>) :
+(<span>In stock: {quantity}</span>) :
     (<span>Out of stock</span>)
 }
 
