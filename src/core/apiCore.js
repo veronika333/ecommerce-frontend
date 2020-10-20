@@ -18,7 +18,7 @@ export const getProducts = (sortBy) => {
 };
 
  export const getCategories = () => {
-  return new Promise((_resolve, reject) => {
+  return new Promise((resolve, reject) => {
     return fetch(`${API}/categories`, {
       method: "GET",
     })
@@ -26,6 +26,7 @@ export const getProducts = (sortBy) => {
         //if get response, return it in json
         return response.json();
       })
+      .then((jsonData) => resolve(jsonData))
       .catch((err) => reject(console.log(err)));
   });
  }
