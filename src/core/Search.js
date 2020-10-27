@@ -6,7 +6,7 @@ const Search = () => {
   const [data, setData] = useState({
     categories: [], //will make api request to get all the categories, to show list of categories
     category: "", //to store particular cattegory
-    search: "", //alue in the search
+    search: "", // in the search
     results: [], //when user clicks, gets all the products
     searched: false,
   });
