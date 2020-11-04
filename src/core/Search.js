@@ -30,7 +30,7 @@ const Search = () => {
 
   const searchData = () => {
     //console.log(search, category);
-    if (search) {
+    if (search || category) {
       //if have search, then excecute list with params
       list({ search: search || undefined, category: category }) //if nothing, then undefined
         .then((response) => {
@@ -74,7 +74,8 @@ const Search = () => {
             product,
             index //map through, pass products as props
           ) => (
-            <Card key={index} product={product} />
+            <div key={index} className="col-4 mb-3"><Card product={product} /></div>
+            
           ))}
         </div>
       </div>

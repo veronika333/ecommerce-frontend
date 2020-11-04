@@ -17,19 +17,20 @@ export const getProducts = (sortBy) => {
   });
 };
 
- export const getCategories = () => {
-  return new Promise((resolve, reject) => {
-    return fetch(`${API}/categories`, {
-      method: "GET",
-    })
-      .then((response) => {
-        //if get response, return it in json
-        return response.json();
-      })
-      .then((jsonData) => resolve(jsonData))
-      .catch((err) => reject(console.log(err)));
-  });
- }
+//the function below didn't work
+//  export const getCategories = () => {
+//   return new Promise((resolve, reject) => {
+//     return fetch(`${API}/categories`, {
+//       method: "GET",
+//     })
+//       .then((response) => {
+//         //if get response, return it in json
+//         return response.json();
+//       })
+//       .then((jsonData) => resolve(jsonData))
+//       .catch((err) => reject(console.log(err)));
+//   });
+//  }
   //passing parameters
  /*  return fetch(`${API}/products?sortBy=${sortBy}&order=desc&limit=6`, {
     method: "GET",
@@ -42,7 +43,7 @@ export const getProducts = (sortBy) => {
 }; */
 
 
-/* export const getCategories = () => {
+export const getCategories = () => {
   return fetch(`${API}/categories`, {
     method: "GET",
   })
@@ -52,7 +53,7 @@ export const getProducts = (sortBy) => {
     })
     .catch((err) => console.log(err));
 };
-*/
+
 //default value of emty object
 export const getFilteredProducts = (skip, limit, filters = {}) => {
 
