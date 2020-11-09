@@ -1,5 +1,5 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-## Ecommerce Cosmetics APP
+## Ecommerce Cosmetics App
 ## Hosting URL: https://cosmetics-1e95b.web.app
 ## Development
 This app was developed by a team of two members: Olabisi Odusanya and Veronika Maisuradze. The aim is to allow users to shop (register, login, add products to shopping cart, search and filter products, etc.) and admin - to manage products, orders and categories.
